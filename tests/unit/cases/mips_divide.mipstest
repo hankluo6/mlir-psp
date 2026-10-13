@@ -1,0 +1,12 @@
+address 0x08800000
+mips_word 0x2408FFEC  # addiu t0, zero, -20
+mips_word 0x24090006  # addiu t1, zero, 6
+mips_word 0x0109001A  # div t0, t1
+mips_word 0x00001012  # mflo v0
+mips_word 0x00001810  # mfhi v1
+mips_word 0x0A200007  # j 0x0880001C
+mips_word 0x00000000  # delay-slot nop
+
+expect v0 0xFFFFFFFD
+expect v1 0xFFFFFFFE
+expect_pc 0x0880001C

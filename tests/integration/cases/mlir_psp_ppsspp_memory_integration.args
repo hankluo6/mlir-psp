@@ -1,0 +1,10 @@
+0x08800000
+0x3C080880 # lui t0, 0x0880
+0x25081000 # addiu t0, t0, 0x1000
+0x2409002A # addiu t1, zero, 42
+0xAD090000 # sw t1, 0(t0)
+0x8D020000 # lw v0, 0(t0)
+0x0A200007 # j 0x0880001C
+0x00000000 # delay-slot nop
+--observe 0x08801000
+--execute-mlir

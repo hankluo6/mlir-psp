@@ -1,0 +1,13 @@
+# cvt.w.s obtains its dynamic rounding mode from FCR31.
+address 0x08800000
+initial a0 0x3FC00000
+initial a1 0x00000003
+mips_word 0x44840000  # mtc1 a0, f0 (1.5)
+mips_word 0x44C5F800  # ctc1 a1, fcr31 (round toward -infinity)
+mips_word 0x46000224  # cvt.w.s f8, f0 (1)
+mips_word 0x44024000  # mfc1 v0, f8
+mips_word 0x0A200006  # j 0x08800018
+mips_word 0x00000000  # delay-slot nop
+
+expect v0 0x00000001
+expect_pc 0x08800018

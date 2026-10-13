@@ -1,0 +1,11 @@
+# Compare equal floats and take BC1T, including its delay slot.
+address 0x08800000
+initial a0 0x3F800000
+mips_word 0x44840000  # mtc1 a0, f0 (1.0)
+mips_word 0x44840800  # mtc1 a0, f1 (1.0)
+mips_word 0x46010032  # c.eq.s f0, f1
+mips_word 0x45010002  # bc1t 0x08800018
+mips_word 0x2402002A  # delay slot: addiu v0, zero, 42
+
+expect v0 42
+expect_pc 0x08800018

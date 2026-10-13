@@ -1,0 +1,7 @@
+# BNE is false for the zeroed a0/a1 registers.
+address 0x08800000
+mips_word 0x14850002  # bne a0, a1, 0x0880000C
+mips_word 0x24020007  # delay slot: addiu v0, zero, 7
+
+expect v0 7
+expect_pc 0x08800008

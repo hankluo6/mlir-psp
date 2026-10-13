@@ -1,0 +1,21 @@
+# Little-endian byte/halfword stores and signed/unsigned loads.
+address 0x08800000
+mips_word 0x3C080880  # lui t0, 0x0880
+mips_word 0x25081000  # addiu t0, t0, 0x1000
+mips_word 0x2409FF80  # addiu t1, zero, -128
+mips_word 0xA1090001  # sb t1, 1(t0)
+mips_word 0x91020001  # lbu v0, 1(t0)
+mips_word 0x81030001  # lb v1, 1(t0)
+mips_word 0x340A8001  # ori t2, zero, 0x8001
+mips_word 0xA50A0002  # sh t2, 2(t0)
+mips_word 0x95040002  # lhu a0, 2(t0)
+mips_word 0x85050002  # lh a1, 2(t0)
+mips_word 0x0A20000C  # j 0x08800030
+mips_word 0x00000000  # delay-slot nop
+
+expect v0 128
+expect v1 0xFFFFFF80
+expect a0 0x00008001
+expect a1 0xFFFF8001
+expect_memory 0x08801000 0x80018000
+expect_pc 0x08800030

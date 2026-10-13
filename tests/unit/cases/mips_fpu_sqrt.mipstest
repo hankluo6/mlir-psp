@@ -1,0 +1,12 @@
+# Scalar square root through the Math-to-LLVM lowering path.
+address 0x08800000
+initial a0 0x40800000
+mips_word 0x44840000  # mtc1 a0, f0 (4.0)
+mips_word 0x46000084  # sqrt.s f2, f0 (2.0)
+mips_word 0x44021000  # mfc1 v0, f2
+mips_word 0x0A200005  # j 0x08800014
+mips_word 0x00000000  # delay-slot nop
+
+expect v0 0x40000000
+expect f2 0x40000000
+expect_pc 0x08800014

@@ -1,0 +1,7 @@
+# Register exit. The adapter starts ra at zero.
+address 0x08800000
+mips_word 0x03E00008  # jr ra
+mips_word 0x24020009  # delay slot: addiu v0, zero, 9
+
+expect v0 9
+expect_pc 0

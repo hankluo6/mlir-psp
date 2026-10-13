@@ -1,0 +1,22 @@
+# Shifts and signed/unsigned comparisons using real Allegrex instructions.
+address 0x08800000
+mips_word 0x24080001  # addiu t0, zero, 1
+mips_word 0x00084900  # sll t1, t0, 4
+mips_word 0x00095082  # srl t2, t1, 2
+mips_word 0x240BFFF8  # addiu t3, zero, -8
+mips_word 0x000B6083  # sra t4, t3, 2
+mips_word 0x0168682A  # slt t5, t3, t0
+mips_word 0x0168702B  # sltu t6, t3, t0
+mips_word 0x290F0002  # slti t7, t0, 2
+mips_word 0x0A20000A  # j 0x08800028
+mips_word 0x00000000  # delay-slot nop
+
+expect t0 1
+expect t1 16
+expect t2 4
+expect t3 0xFFFFFFF8
+expect r12 0xFFFFFFFE
+expect r13 1
+expect r14 0
+expect r15 1
+expect_pc 0x08800028

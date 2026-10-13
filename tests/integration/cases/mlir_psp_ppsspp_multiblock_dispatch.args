@@ -1,0 +1,6 @@
+0x08800000
+0x24420001 # addiu v0, v0, 1
+0x0A200000 # j 0x08800000
+0x00000000 # delay-slot nop
+--repeat-block 2
+--execute-mlir

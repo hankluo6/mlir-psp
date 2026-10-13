@@ -1,0 +1,10 @@
+# Write and read FCR31, verifying the PSP mask and cached condition bit.
+address 0x08800000
+initial a0 0xFFFFFFFF
+mips_word 0x44C4F800  # ctc1 a0, fcr31
+mips_word 0x4442F800  # cfc1 v0, fcr31
+mips_word 0x0A200004  # j 0x08800010
+mips_word 0x00000000  # delay-slot nop
+
+expect v0 0x0181FFFF
+expect_pc 0x08800010

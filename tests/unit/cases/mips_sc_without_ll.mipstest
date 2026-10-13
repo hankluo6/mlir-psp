@@ -1,0 +1,13 @@
+address 0x08800000
+initial a0 0x08801000
+initial t0 99
+memory 0x08801000 41
+mips_word 0xE0880000  # sc t0, 0(a0): fails because no LL established llBit
+mips_word 0x8C820000  # lw v0, 0(a0): memory must remain unchanged
+mips_word 0x0A200004  # j 0x08800010
+mips_word 0x00000000  # delay-slot nop
+
+expect t0 0
+expect v0 41
+expect_memory 0x08801000 41
+expect_pc 0x08800010

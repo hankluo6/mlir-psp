@@ -1,0 +1,10 @@
+# Real Allegrex/MIPS machine code translated and interpreted by PPSSPP.
+address 0x08800000
+mips_word 0x24040028  # addiu a0, zero, 40
+mips_word 0x24820002  # addiu v0, a0, 2
+mips_word 0x0A200004  # j 0x08800010
+mips_word 0x00000000  # delay-slot nop
+
+expect a0 40
+expect v0 42
+expect_pc 0x08800010

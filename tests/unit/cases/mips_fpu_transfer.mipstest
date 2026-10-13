@@ -1,0 +1,17 @@
+# Scalar FPU/GPR transfers and bit-preserving float memory operations.
+address 0x08800000
+initial a0 0xDEADBEEF
+initial a1 0x08801000
+memory 0x08801000 0xCAFEBABE
+mips_word 0x44840000  # mtc1 a0, f0
+mips_word 0x44020000  # mfc1 v0, f0
+mips_word 0xC4A10000  # lwc1 f1, 0(a1)
+mips_word 0xE4A10004  # swc1 f1, 4(a1)
+mips_word 0x0A200006  # j 0x08800018
+mips_word 0x00000000  # delay-slot nop
+
+expect v0 0xDEADBEEF
+expect f0 0xDEADBEEF
+expect f1 0xCAFEBABE
+expect_memory 0x08801004 0xCAFEBABE
+expect_pc 0x08800018

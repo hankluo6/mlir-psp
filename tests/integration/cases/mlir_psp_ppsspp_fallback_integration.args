@@ -1,0 +1,5 @@
+0x08800000
+0xBC000000 # cache 0, 0(zero) (unsupported MLIR lowering)
+0x0A200003 # j 0x0880000C
+0x00000000 # delay-slot nop
+--execute-mlir

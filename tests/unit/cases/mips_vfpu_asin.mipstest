@@ -1,0 +1,12 @@
+# Exercise FAsin through actual MIPS VFPU instructions, with a nonconstant input.
+# In PPSSPP's no-table fallback asin(0.1f) / (double)pi/2 is 0x3D829918;
+# dividing by float pi/2 incorrectly produces 0x3D829917 (one ULP lower).
+address 0x08800000
+initial a0 0x3DCCCCCD
+mips_word 0x48E40000  # mtv a0, S000
+mips_word 0xD0170001  # vasin.s S010, S000
+mips_word 0x48620001  # mfv v0, S010
+mips_word 0x0A200005  # j 0x08800014
+mips_word 0x00000000  # delay-slot nop
+expect v0 0x3D829918
+expect_pc 0x08800014

@@ -1,0 +1,7 @@
+# Scalar FPU arithmetic is intentionally unsupported by the current MLIR subset.
+address 0x08800000
+mips_word 0xBC000000  # cache 0, 0(zero), interpreted by PPSSPP
+mips_word 0x0A200003  # j 0x0880000C
+mips_word 0x00000000  # delay-slot nop
+
+expect_pc 0x0880000C

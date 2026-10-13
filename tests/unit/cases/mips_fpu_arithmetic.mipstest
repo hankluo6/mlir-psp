@@ -1,0 +1,22 @@
+# Exact scalar arithmetic with values that have exact IEEE-754 results.
+address 0x08800000
+initial a0 0x3FC00000
+initial a1 0x40000000
+mips_word 0x44840000  # mtc1 a0, f0 (1.5)
+mips_word 0x44850800  # mtc1 a1, f1 (2.0)
+mips_word 0x46010080  # add.s f2, f0, f1 (3.5)
+mips_word 0x460008C1  # sub.s f3, f1, f0 (0.5)
+mips_word 0x46010102  # mul.s f4, f0, f1 (3.0)
+mips_word 0x46000943  # div.s f5, f1, f0 (4/3)
+mips_word 0x44021000  # mfc1 v0, f2
+mips_word 0x44031800  # mfc1 v1, f3
+mips_word 0x44082000  # mfc1 t0, f4
+mips_word 0x44092800  # mfc1 t1, f5
+mips_word 0x0A20000C  # j 0x08800030
+mips_word 0x00000000  # delay-slot nop
+
+expect v0 0x40600000
+expect v1 0x3F000000
+expect t0 0x40400000
+expect t1 0x3FAAAAAB
+expect_pc 0x08800030

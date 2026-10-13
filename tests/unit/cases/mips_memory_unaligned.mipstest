@@ -1,0 +1,17 @@
+# LWL/LWR and SWL/SWR across a 32-bit word boundary.
+address 0x08800000
+initial a0 0x08801001
+initial t0 0xDEADBEEF
+memory 0x08801000 0x11223344
+memory 0x08801004 0xAABBCCDD
+mips_word 0x88820003  # lwl v0, 3(a0)
+mips_word 0x98820000  # lwr v0, 0(a0)
+mips_word 0xA8880003  # swl t0, 3(a0)
+mips_word 0xB8880000  # swr t0, 0(a0)
+mips_word 0x0A200006  # j 0x08800018
+mips_word 0x00000000  # delay-slot nop
+
+expect v0 0xDD112233
+expect_memory 0x08801000 0xADBEEF44
+expect_memory 0x08801004 0xAABBCCDE
+expect_pc 0x08800018

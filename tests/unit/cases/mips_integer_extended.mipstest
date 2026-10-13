@@ -1,0 +1,11 @@
+# Dynamic input prevents PPSSPP's frontend from constant-folding these ops.
+address 0x08800000
+initial a0 0x12345678
+mips_word 0x00244A02  # rotr t1, a0, 8
+mips_word 0x00805016  # clz t2, a0
+mips_word 0x0A200004  # j 0x08800010
+mips_word 0x00000000  # delay-slot nop
+
+expect t1 0x78123456
+expect t2 3
+expect_pc 0x08800010

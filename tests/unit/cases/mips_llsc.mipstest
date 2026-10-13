@@ -1,0 +1,14 @@
+address 0x08800000
+initial a0 0x08801000
+memory 0x08801000 41
+mips_word 0xC0880000  # ll t0, 0(a0)
+mips_word 0x25080001  # addiu t0, t0, 1
+mips_word 0xE0880000  # sc t0, 0(a0)
+mips_word 0x8C820000  # lw v0, 0(a0)
+mips_word 0x0A200006  # j 0x08800018
+mips_word 0x00000000  # delay-slot nop
+
+expect t0 1
+expect v0 42
+expect_memory 0x08801000 42
+expect_pc 0x08800018
