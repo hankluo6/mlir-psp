@@ -12,6 +12,3 @@
 Production backend targets are defined in `integration/CMakeLists.txt` at the
 repository root. The root `adapter/CMakeLists.txt` is only a compatibility entry
 point for existing build configurations and executable paths.
-
-Independent LLVM bug reproducers are under `tools/reproducers/`, not part of
-the normal regression suite. Historical results and profiling live in `docs/`.

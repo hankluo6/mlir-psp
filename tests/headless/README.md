@@ -38,6 +38,6 @@ copies are removed after the emulator exits, including ordinary failures and
 process timeouts; an externally interrupted wrapper can leave an attempt
 directory behind. Existing source fixtures and prior logs are never removed.
 
-The supplied `cpu/vfpu/vregs.prx` appears older than its source/expected output;
-see `../../docs/validation-notes.md`. Do not regenerate expected output from the
+The supplied `cpu/vfpu/vregs.prx` appears older than its source/expected output.
+Do not regenerate expected output from the
 emulator to hide these failures.
